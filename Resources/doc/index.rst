@@ -55,7 +55,7 @@ Configure notifiables classes:
 The goal of this bundle is to make one or many entities ``notifiables``.
 
 1. Use the ``@Notifiable`` annotation on your entity
-2. Implement the ``Mgilet\NotificationBundle\NotifiableInterface`` interface (it's an empty interface)
+2. Implement the ``Mgilet\NotificationBundle\Model\NotifiableInterface`` interface (it's an empty interface)
 
 And that's it !
 
@@ -70,7 +70,7 @@ Example:
 
     ...
     use Mgilet\NotificationBundle\Annotation\Notifiable;
-    use Mgilet\NotificationBundle\NotifiableInterface;
+    use Mgilet\NotificationBundle\Model\NotifiableInterface;
 
     /**
      * @ORM\Entity
