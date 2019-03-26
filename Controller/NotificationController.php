@@ -2,8 +2,9 @@
 
 namespace Mgilet\NotificationBundle\Controller;
 
+use Mgilet\NotificationBundle\Model\NotifiableNotificationInterface;
 use Mgilet\NotificationBundle\Model\NotificationInterface;
-use Mgilet\NotificationBundle\NotifiableInterface;
+use Mgilet\NotificationBundle\Model\NotifiableInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,7 +28,7 @@ class NotificationController extends Controller
      */
     public function listAction($notifiable)
     {
-        $notifiableRepo = $this->get('doctrine.orm.entity_manager')->getRepository('MgiletNotificationBundle:NotifiableNotification');
+        $notifiableRepo = $this->get('doctrine.orm.entity_manager')->getRepository(NotifiableNotificationInterface::class);
         $notificationList = $notifiableRepo->findAllForNotifiableId($notifiable);
         return $this->render('@MgiletNotification/notifications.html.twig', array(
             'notificationList' => $notificationList,

@@ -4,13 +4,12 @@ namespace Mgilet\NotificationBundle\Manager;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityNotFoundException;
-use Mgilet\NotificationBundle\Model\Notifiable;
+use Mgilet\NotificationBundle\Model\NotifiableInterface;
 use Mgilet\NotificationBundle\Model\NotifiableNotificationInterface;
 use Mgilet\NotificationBundle\Model\NotificationInterface;
 use Mgilet\NotificationBundle\Event\NotificationEvent;
 use Mgilet\NotificationBundle\MgiletNotificationEvents;
 use Mgilet\NotificationBundle\NotifiableDiscovery;
-use Mgilet\NotificationBundle\NotifiableInterface;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -40,9 +39,9 @@ class NotificationManager
         $this->discovery = $discovery;
         $this->om = $container->get('doctrine.orm.entity_manager');
         $this->dispatcher = $container->get('event_dispatcher');
-        $this->notifiableRepository = $this->om->getRepository('MgiletNotificationBundle:Notifiable');
-        $this->notificationRepository = $this->om->getRepository('MgiletNotificationBundle:Notification');
-        $this->notifiableNotificationRepository = $this->om->getRepository('MgiletNotificationBundle:NotifiableNotification');
+        $this->notifiableRepository = $this->om->getRepository(NotifiableInterface::class);
+        $this->notificationRepository = $this->om->getRepository(NotificationInterface::class);
+        $this->notifiableNotificationRepository = $this->om->getRepository(NotifiableNotificationInterface::class);
     }
 
     /**
@@ -383,7 +382,7 @@ class NotificationManager
      */
     public function removeNotification(array $notifiables, NotificationInterface $notification, $flush = false)
     {
-        $repo = $this->om->getRepository('MgiletNotificationBundle:NotifiableNotification');
+        $repo = $this->om->getRepository(NotifiableNotificationInterface::class);
         foreach ($notifiables as $notifiable) {
             $repo->createQueryBuilder('nn')
                 ->delete()

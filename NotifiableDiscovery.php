@@ -6,6 +6,7 @@ use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use Metadata\ClassMetadata;
+use Mgilet\NotificationBundle\Model\NotifiableInterface;
 
 class NotifiableDiscovery
 {

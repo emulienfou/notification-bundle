@@ -10,4 +10,8 @@ namespace Mgilet\NotificationBundle\Model;
 interface NotifiableInterface
 {
 
+    /**
+     * @return int Notifiable Id
+     */
+    public function getId();
 }
