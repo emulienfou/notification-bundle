@@ -3,10 +3,9 @@
 namespace Mgilet\NotificationBundle\Twig;
 
 use Doctrine\DBAL\Exception\InvalidArgumentException;
-use Mgilet\NotificationBundle\Entity\NotifiableEntity;
-use Mgilet\NotificationBundle\Entity\NotificationInterface;
+use Mgilet\NotificationBundle\Model\NotifiableInterface;
+use Mgilet\NotificationBundle\Model\NotificationInterface;
 use Mgilet\NotificationBundle\Manager\NotificationManager;
-use Mgilet\NotificationBundle\NotifiableInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Twig_Extension;

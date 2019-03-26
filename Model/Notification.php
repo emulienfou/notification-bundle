@@ -4,26 +4,16 @@ namespace Mgilet\NotificationBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Mgilet\NotificationBundle\Entity\NotifiableNotification;
 
 /**
  * Class Notification
  * Notifications defined in your app must implement this class
  *
- * @ORM\MappedSuperclass(repositoryClass="Mgilet\NotificationBundle\Entity\Repository\NotificationRepository")
+ * @ORM\MappedSuperclass(repositoryClass="Mgilet\NotificationBundle\Repository\NotificationRepository")
  * @package Mgilet\NotificationBundle\Model
  */
-abstract class Notification implements \JsonSerializable
+abstract class Notification implements NotificationInterface, \JsonSerializable
 {
-
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     */
-    protected $id;
 
     /**
      * @var \DateTime
@@ -50,11 +40,9 @@ abstract class Notification implements \JsonSerializable
 
     /**
      * @var NotifiableNotification[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Mgilet\NotificationBundle\Entity\NotifiableNotification", mappedBy="notification", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Mgilet\NotificationBundle\Model\NotifiableNotificationInterface", mappedBy="notification", cascade={"persist"})
      */
     protected $notifiableNotifications;
-
-
 
     /**
      * AbstractNotification constructor.
@@ -63,14 +51,6 @@ abstract class Notification implements \JsonSerializable
     {
         $this->date = new \DateTime();
         $this->notifiableNotifications = new ArrayCollection();
-    }
-
-    /**
-     * @return int Notification Id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

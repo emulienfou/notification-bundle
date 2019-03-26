@@ -1,6 +1,6 @@
 <?php
 
-namespace Mgilet\NotificationBundle\Entity;
+namespace Mgilet\NotificationBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,21 +8,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class NotifiableEntity
- * @package Mgilet\NotificationBundle\Entity
+ * @package Mgilet\NotificationBundle\Model
  *
- * @ORM\Entity(repositoryClass="Mgilet\NotificationBundle\Entity\Repository\NotifiableRepository")
+ * @ORM\MappedSuperclass(repositoryClass="Mgilet\NotificationBundle\Repository\NotifiableRepository")
  * @UniqueEntity(fields={"identifier", "class"})
  */
-class NotifiableEntity implements \JsonSerializable
+abstract class Notifiable implements NotifiableInterface, \JsonSerializable
 {
-    /**
-     * @var string $id
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Id
-     */
-    protected $id;
 
     /**
      * @var string $identifier
@@ -40,7 +32,7 @@ class NotifiableEntity implements \JsonSerializable
 
     /**
      * @var NotifiableNotification[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Mgilet\NotificationBundle\Entity\NotifiableNotification", mappedBy="notifiableEntity",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Mgilet\NotificationBundle\Model\NotifiableNotificationInterface", mappedBy="notifiableEntity", cascade={"persist"})
      */
     protected $notifiableNotifications;
 
@@ -58,14 +50,6 @@ class NotifiableEntity implements \JsonSerializable
     }
 
     /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
     public function getIdentifier()
@@ -76,7 +60,7 @@ class NotifiableEntity implements \JsonSerializable
     /**
      * @param string $identifier
      *
-     * @return NotifiableEntity
+     * @return Notifiable
      */
     public function setIdentifier($identifier)
     {
@@ -96,7 +80,7 @@ class NotifiableEntity implements \JsonSerializable
     /**
      * @param string $class
      *
-     * @return NotifiableEntity
+     * @return Notifiable
      */
     public function setClass($class)
     {

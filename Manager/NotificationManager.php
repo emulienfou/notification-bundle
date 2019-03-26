@@ -4,10 +4,9 @@ namespace Mgilet\NotificationBundle\Manager;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityNotFoundException;
-use Mgilet\NotificationBundle\Entity\NotifiableEntity;
-use Mgilet\NotificationBundle\Entity\NotifiableNotification;
-use Mgilet\NotificationBundle\Entity\Notification;
-use Mgilet\NotificationBundle\Entity\NotificationInterface;
+use Mgilet\NotificationBundle\Model\Notifiable;
+use Mgilet\NotificationBundle\Model\NotifiableNotificationInterface;
+use Mgilet\NotificationBundle\Model\NotificationInterface;
 use Mgilet\NotificationBundle\Event\NotificationEvent;
 use Mgilet\NotificationBundle\MgiletNotificationEvents;
 use Mgilet\NotificationBundle\NotifiableDiscovery;
@@ -41,7 +40,7 @@ class NotificationManager
         $this->discovery = $discovery;
         $this->om = $container->get('doctrine.orm.entity_manager');
         $this->dispatcher = $container->get('event_dispatcher');
-        $this->notifiableRepository = $this->om->getRepository('MgiletNotificationBundle:NotifiableEntity');
+        $this->notifiableRepository = $this->om->getRepository('MgiletNotificationBundle:Notifiable');
         $this->notificationRepository = $this->om->getRepository('MgiletNotificationBundle:Notification');
         $this->notifiableNotificationRepository = $this->om->getRepository('MgiletNotificationBundle:NotifiableNotification');
     }
@@ -104,15 +103,15 @@ class NotificationManager
     }
 
     /**
-     * Get the identifier mapping for a NotifiableEntity
+     * Get the identifier mapping for a Notifiable
      *
-     * @param NotifiableEntity $notifiableEntity
+     * @param NotifiableInterface $notifiableEntity
      *
      * @return array
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function getNotifiableEntityIdentifiers(NotifiableEntity $notifiableEntity)
+    public function getNotifiableEntityIdentifiers(NotifiableInterface $notifiableEntity)
     {
         $discoveryNotifiables = $this->getDiscoveryNotifiables();
         foreach ($discoveryNotifiables as $notifiable) {
@@ -150,7 +149,7 @@ class NotificationManager
      *
      * @param NotifiableInterface $notifiable
      *
-     * @return NotifiableEntity
+     * @return NotifiableInterface
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\ORMInvalidArgumentException
      * @throws \RuntimeException
@@ -175,14 +174,14 @@ class NotificationManager
     }
 
     /**
-     * @param NotifiableEntity $notifiableEntity
+     * @param NotifiableInterface $notifiableEntity
      *
      * @return NotifiableInterface
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function getNotifiableInterface(NotifiableEntity $notifiableEntity)
+    public function getNotifiableInterface(NotifiableInterface $notifiableEntity)
     {
         return $this->notifiableRepository->findNotifiableInterface(
             $notifiableEntity,
@@ -193,7 +192,7 @@ class NotificationManager
     /**
      * @param $id
      *
-     * @return NotifiableEntity|null
+     * @return NotifiableInterface|null
      */
     public function getNotifiableEntityById($id)
     {
@@ -204,7 +203,7 @@ class NotificationManager
      * @param NotifiableInterface   $notifiable
      * @param NotificationInterface $notification
      *
-     * @return NotifiableNotification|null
+     * @return NotifiableNotificationInterface|null
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\ORMInvalidArgumentException
      * @throws \RuntimeException
@@ -238,7 +237,7 @@ class NotificationManager
      *
      * @param string $order
      *
-     * @return Notification[]
+     * @return NotificationInterface[]
      */
     public function getAll($order = 'DESC')
     {
@@ -314,7 +313,7 @@ class NotificationManager
      *
      * @param $id
      *
-     * @return Notification
+     * @return NotificationInterface
      */
     public function getNotification($id)
     {
@@ -326,7 +325,7 @@ class NotificationManager
      * @param string $message
      * @param string $link
      *
-     * @return Notification
+     * @return NotificationInterface
      */
     public function createNotification($subject, $message = null, $link = null)
     {

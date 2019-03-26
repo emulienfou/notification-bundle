@@ -2,7 +2,7 @@
 
 namespace Mgilet\NotificationBundle\Controller;
 
-use Mgilet\NotificationBundle\Entity\Notification;
+use Mgilet\NotificationBundle\Model\NotificationInterface;
 use Mgilet\NotificationBundle\NotifiableInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -41,7 +41,7 @@ class NotificationController extends Controller
      * @Route("/{notifiable}/mark_as_seen/{notification}", name="notification_mark_as_seen")
      * @Method("POST")
      * @param int           $notifiable
-     * @param Notification  $notification
+     * @param NotificationInterface  $notification
      *
      * @return JsonResponse
      * @throws \RuntimeException

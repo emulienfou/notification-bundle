@@ -1,13 +1,13 @@
 <?php
 
-namespace Mgilet\NotificationBundle\Entity;
+namespace Mgilet\NotificationBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Interface NotificationInterface
  *
- * @package Mgilet\NotificationBundle\Entity
+ * @package Mgilet\NotificationBundle\Model
  */
 interface NotificationInterface
 {

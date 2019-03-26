@@ -1,22 +1,21 @@
 <?php
 
-namespace Mgilet\NotificationBundle\Entity\Repository;
+namespace Mgilet\NotificationBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Mgilet\NotificationBundle\Entity\NotifiableEntity;
-use Mgilet\NotificationBundle\NotifiableInterface;
+use Mgilet\NotificationBundle\Model\NotifiableInterface;
 
 class NotifiableRepository extends EntityRepository
 {
 
     /**
-     * @param NotifiableEntity $notifiableEntity
+     * @param NotifiableInterface $notifiableEntity
      * @param array            $mapping
      *
      * @return NotifiableInterface|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findNotifiableInterface(NotifiableEntity $notifiableEntity, array $mapping)
+    public function findNotifiableInterface(NotifiableInterface $notifiableEntity, array $mapping)
     {
         // create the querybuilder from the entity
         $qb = $this->createQueryBuilder('n')->select('e')->from($notifiableEntity->getClass(), 'e');

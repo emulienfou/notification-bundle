@@ -6,10 +6,10 @@
  * Time: 09:24
  */
 
-namespace Mgilet\NotificationBundle\Entity\Repository;
+namespace Mgilet\NotificationBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Mgilet\NotificationBundle\Entity\NotifiableNotification;
+use Mgilet\NotificationBundle\Model\NotifiableNotificationInterface;
 
 class NotifiableNotificationRepository extends EntityRepository
 {
@@ -18,7 +18,7 @@ class NotifiableNotificationRepository extends EntityRepository
      * @param $notification_id
      * @param $notifiable_id
      *
-     * @return NotifiableNotification|null
+     * @return NotifiableNotificationInterface|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOne($notification_id, $notifiable_id)
@@ -42,7 +42,7 @@ class NotifiableNotificationRepository extends EntityRepository
      * @param        $notifiable_class
      * @param string $order
      *
-     * @return NotifiableNotification[]
+     * @return NotifiableNotificationInterface[]
      */
     public function findAllForNotifiable($notifiable_identifier, $notifiable_class, $order = 'DESC')
     {
@@ -137,7 +137,7 @@ class NotifiableNotificationRepository extends EntityRepository
      * @param        $id
      * @param string $order
      *
-     * @return NotifiableNotification[]
+     * @return NotifiableNotificationInterface[]
      */
     public function findAllForNotifiableId($id, $order = 'DESC')
     {

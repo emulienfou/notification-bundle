@@ -1,6 +1,6 @@
 <?php
 
-namespace Mgilet\NotificationBundle\Entity\Repository;
+namespace Mgilet\NotificationBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -1,26 +1,18 @@
 <?php
 
-namespace Mgilet\NotificationBundle\Entity;
+namespace Mgilet\NotificationBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class NotifiableNotification
- * @package Mgilet\NotificationBundle\Entity
+ * @package Mgilet\NotificationBundle\Model
  *
- * @ORM\Entity(repositoryClass="Mgilet\NotificationBundle\Entity\Repository\NotifiableNotificationRepository")
+ * @ORM\MappedSuperclass(repositoryClass="Mgilet\NotificationBundle\Repository\NotifiableNotificationRepository")
  *
  */
-class NotifiableNotification implements \JsonSerializable
+abstract class NotifiableNotification implements NotifiableNotificationInterface, \JsonSerializable
 {
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     */
-    protected $id;
 
     /**
      * @var boolean
@@ -30,14 +22,13 @@ class NotifiableNotification implements \JsonSerializable
 
     /**
      * @var Notification
-     * @ORM\ManyToOne(targetEntity="Mgilet\NotificationBundle\Entity\Notification", inversedBy="notifiableNotifications", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Mgilet\NotificationBundle\Model\NotificationInterface", inversedBy="notifiableNotifications", cascade={"persist"})
      */
     protected $notification;
 
     /**
-     * @var NotifiableEntity
-     * @ORM\ManyToOne(targetEntity="Mgilet\NotificationBundle\Entity\NotifiableEntity", inversedBy="notifiableNotifications", cascade={"persist"})
-     *
+     * @var Notifiable
+     * @ORM\ManyToOne(targetEntity="Mgilet\NotificationBundle\Model\NotifiableInterface", inversedBy="notifiableNotifications", cascade={"persist"})
      */
     protected $notifiableEntity;
 
@@ -47,14 +38,6 @@ class NotifiableNotification implements \JsonSerializable
     public function __construct()
     {
         $this->seen = false;
-    }
-
-    /**
-     * @return int Notification Id
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -97,7 +80,7 @@ class NotifiableNotification implements \JsonSerializable
     }
 
     /**
-     * @return NotifiableEntity
+     * @return Notifiable
      */
     public function getNotifiableEntity()
     {
@@ -105,11 +88,11 @@ class NotifiableNotification implements \JsonSerializable
     }
 
     /**
-     * @param NotifiableEntity $notifiableEntity
+     * @param Notifiable $notifiableEntity
      *
      * @return NotifiableNotification
      */
-    public function setNotifiableEntity(NotifiableEntity $notifiableEntity = null)
+    public function setNotifiableEntity(Notifiable $notifiableEntity = null)
     {
         $this->notifiableEntity = $notifiableEntity;
 
