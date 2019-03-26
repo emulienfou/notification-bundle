@@ -164,7 +164,8 @@ class NotificationManager
         ));
 
         if (!$entity) {
-            $entity = new NotifiableEntity($identifier, $class);
+            $entityClass = $this->om->getMetadataFactory()->getMetadataFor(NotifiableEntityInterface::class)->getName();
+            $entity = new $entityClass($identifier, $class);
             $this->om->persist($entity);
             $this->om->flush();
         }
@@ -328,7 +329,8 @@ class NotificationManager
      */
     public function createNotification($subject, $message = null, $link = null)
     {
-        $notification = new Notification();
+        $notificationClass = $this->om->getMetadataFactory()->getMetadataFor(NotificationInterface::class)->getName();
+        $notification = new $notificationClass();
         $notification
             ->setSubject($subject)
             ->setMessage($message)
@@ -357,7 +359,8 @@ class NotificationManager
         foreach ($notifiables as $notifiable) {
             $entity = $this->getNotifiableEntity($notifiable);
 
-            $notifiableNotification = new NotifiableNotification();
+            $notifiableNotificationClass = $this->om->getMetadataFactory()->getMetadataFor(NotifiableNotificationInterface::class)->getName();
+            $notifiableNotification = new $notifiableNotificationClass();
             $entity->addNotifiableNotification($notifiableNotification);
             $notification->addNotifiableNotification($notifiableNotification);
 
