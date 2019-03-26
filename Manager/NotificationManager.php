@@ -164,7 +164,7 @@ class NotificationManager
         ));
 
         if (!$entity) {
-            $entityClass = $this->om->getMetadataFactory()->getMetadataFor(NotifiableEntityInterface::class)->getName();
+            $entityClass = $this->om->getMetadataFactory()->getMetadataFor(NotifiableInterface::class)->getName();
             $entity = new $entityClass($identifier, $class);
             $this->om->persist($entity);
             $this->om->flush();
