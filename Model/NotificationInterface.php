@@ -71,16 +71,16 @@ interface NotificationInterface
     public function getNotifiableNotifications();
 
     /**
-     * @param NotifiableNotification $notifiableNotification
+     * @param NotifiableNotificationInterface $notifiableNotification
      *
      * @return NotificationInterface
      */
-    public function addNotifiableNotification(NotifiableNotification $notifiableNotification);
+    public function addNotifiableNotification(NotifiableNotificationInterface $notifiableNotification);
 
     /**
-     * @param NotifiableNotification $notifiableNotification
+     * @param NotifiableNotificationInterface $notifiableNotification
      *
      * @return NotificationInterface
      */
-    public function removeNotifiableNotification(NotifiableNotification $notifiableNotification);
+    public function removeNotifiableNotification(NotifiableNotificationInterface $notifiableNotification);
 }
