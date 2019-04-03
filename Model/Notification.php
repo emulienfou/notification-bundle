@@ -130,7 +130,7 @@ abstract class Notification implements NotificationInterface, \JsonSerializable
     }
 
     /**
-     * @return ArrayCollection|NotifiableNotification[]
+     * @return ArrayCollection|NotifiableNotificationInterface[]
      */
     public function getNotifiableNotifications()
     {

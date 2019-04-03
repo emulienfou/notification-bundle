@@ -88,11 +88,11 @@ abstract class NotifiableNotification implements NotifiableNotificationInterface
     }
 
     /**
-     * @param Notifiable $notifiableEntity
+     * @param NotifiableInterface $notifiableEntity
      *
      * @return NotifiableNotification
      */
-    public function setNotifiableEntity(Notifiable $notifiableEntity = null)
+    public function setNotifiableEntity(NotifiableInterface $notifiableEntity = null)
     {
         $this->notifiableEntity = $notifiableEntity;
 

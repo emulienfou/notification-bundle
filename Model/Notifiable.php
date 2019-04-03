@@ -90,7 +90,7 @@ abstract class Notifiable implements NotifiableInterface, \JsonSerializable
     }
 
     /**
-     * @return ArrayCollection|NotifiableNotification[]
+     * @return ArrayCollection|NotifiableNotificationInterface[]
      */
     public function getNotifiableNotifications()
     {
@@ -98,11 +98,11 @@ abstract class Notifiable implements NotifiableInterface, \JsonSerializable
     }
 
     /**
-     * @param NotifiableNotification $notifiableNotification
+     * @param NotifiableNotificationInterface $notifiableNotification
      *
      * @return $this
      */
-    public function addNotifiableNotification(NotifiableNotification $notifiableNotification)
+    public function addNotifiableNotification(NotifiableNotificationInterface $notifiableNotification)
     {
         if (!$this->notifiableNotifications->contains($notifiableNotification)) {
             $this->notifiableNotifications[] = $notifiableNotification;
@@ -113,11 +113,11 @@ abstract class Notifiable implements NotifiableInterface, \JsonSerializable
     }
 
     /**
-     * @param NotifiableNotification $notifiableNotification
+     * @param NotifiableNotificationInterface $notifiableNotification
      *
      * @return $this
      */
-    public function removeNotifiableNotification(NotifiableNotification $notifiableNotification)
+    public function removeNotifiableNotification(NotifiableNotificationInterface $notifiableNotification)
     {
         if ($this->notifiableNotifications->contains($notifiableNotification)) {
             $this->notifiableNotifications->removeElement($notifiableNotification);
